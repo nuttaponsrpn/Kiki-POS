@@ -83,8 +83,8 @@ const filteredProducts = computed(() => {
       </header>
 
       <!-- Product Grid -->
-      <div class="flex-1 overflow-y-auto p-4 lg:p-6 pb-24 lg:pb-6">
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+      <div class="flex-1 overflow-y-auto p-4 lg:p-6 pb-32 lg:pb-6">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4">
           <ProductCard 
             v-for="product in filteredProducts" 
             :key="product.id" 
@@ -115,14 +115,24 @@ const filteredProducts = computed(() => {
     </div>
 
     <!-- Mobile Cart Drawer -->
-    <div v-if="isCartOpen" class="fixed inset-0 z-50 lg:hidden">
-      <div class="absolute inset-0 bg-black bg-opacity-50" @click="isCartOpen = false"></div>
-      <div class="absolute inset-y-0 right-0 w-full max-w-sm bg-white flex flex-col shadow-2xl transform transition-transform">
-        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+    <div v-if="isCartOpen" class="fixed inset-0 z-50 lg:hidden flex flex-col">
+      <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm" @click="isCartOpen = false"></div>
+      <div class="absolute inset-y-0 right-0 w-full max-w-sm bg-white flex flex-col shadow-2xl transform transition-transform h-full">
+        <div class="p-4 border-b border-gray-200 flex justify-between items-center bg-white z-10">
           <h2 class="text-lg font-bold">Current Order</h2>
-          <button @click="isCartOpen = false" class="text-gray-500">Close</button>
+          <button 
+            @click="isCartOpen = false" 
+            class="p-2 -mr-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full"
+          >
+            <span class="sr-only">Close</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
-        <CartSidebar />
+        <div class="flex-1 overflow-hidden relative">
+          <CartSidebar />
+        </div>
       </div>
     </div>
   </div>

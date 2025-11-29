@@ -13,7 +13,7 @@ const handleCheckout = () => {
   showPaymentConfirm.value = true
 }
 
-const confirmPayment = async () => {
+const confirmPayment = async (payload?: { cashReceived: number, change: number }) => {
   showPaymentConfirm.value = false
   processing.value = true
   try {
@@ -80,24 +80,24 @@ const confirmPayment = async () => {
         Cart is empty
       </div>
       
-      <div v-for="item in cart" :key="item.product.id" class="flex gap-4 bg-gray-50 p-3 rounded-lg">
-        <div class="flex-1">
-          <h4 class="font-medium text-sm">{{ item.product.name }}</h4>
-          <div class="text-kiki-red font-bold text-sm">${{ item.product.price * item.quantity }}</div>
+      <div v-for="item in cart" :key="item.product.id" class="flex gap-3 bg-gray-50 p-3 rounded-lg">
+        <div class="flex-1 min-w-0">
+          <h4 class="font-medium text-sm truncate">{{ item.product.name }}</h4>
+          <div class="text-kiki-red font-bold text-sm mt-1">${{ item.product.price * item.quantity }}</div>
         </div>
         
         <div class="flex flex-col items-end gap-2">
-          <button @click="removeFromCart(item.product.id)" class="text-gray-400 hover:text-red-500">
+          <button @click="removeFromCart(item.product.id)" class="text-gray-400 hover:text-red-500 p-1 -mr-1">
             <Trash2 class="w-4 h-4" />
           </button>
           
-          <div class="flex items-center bg-white rounded border border-gray-200">
-            <button @click="updateQuantity(item.product.id, -1)" class="p-1 hover:bg-gray-100">
-              <Minus class="w-3 h-3" />
+          <div class="flex items-center bg-white rounded-lg border border-gray-200 shadow-sm">
+            <button @click="updateQuantity(item.product.id, -1)" class="p-2 hover:bg-gray-100 active:bg-gray-200 rounded-l-lg touch-manipulation">
+              <Minus class="w-4 h-4" />
             </button>
-            <span class="px-2 text-sm font-medium">{{ item.quantity }}</span>
-            <button @click="updateQuantity(item.product.id, 1)" class="p-1 hover:bg-gray-100">
-              <Plus class="w-3 h-3" />
+            <span class="px-2 text-sm font-medium min-w-[1.5rem] text-center">{{ item.quantity }}</span>
+            <button @click="updateQuantity(item.product.id, 1)" class="p-2 hover:bg-gray-100 active:bg-gray-200 rounded-r-lg touch-manipulation">
+              <Plus class="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -119,12 +119,9 @@ const confirmPayment = async () => {
       </button>
     </div>
 
-    <ConfirmModal
-      v-if="showPaymentConfirm"
-      title="Confirm Payment"
-      :message="`Are you sure you want to process the payment of $${total}?`"
-      confirm-text="Confirm Payment"
-      type="warning"
+    <PaymentModal
+      :is-open="showPaymentConfirm"
+      :total="total"
       @confirm="confirmPayment"
       @cancel="showPaymentConfirm = false"
     />

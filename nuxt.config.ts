@@ -15,25 +15,36 @@ export default defineNuxtConfig({
     },
   },
   pwa: {
+    registerType: 'autoUpdate',
+    devOptions: {
+      enabled: true,
+      type: 'module',
+    },
+    filename: 'manifest.webmanifest',
     manifest: {
       name: 'Kiki POS',
       short_name: 'Kiki POS',
       description: 'Efficient and modern Point of Sale system for your business.',
       theme_color: '#F4C430',
+      background_color: '#ffffff',
+      display: 'standalone',
+      start_url: '/',
+      lang: 'en',
       icons: [
         {
-          src: 'android-chrome-192x192.png',
+          src: '/android-chrome-192x192.png',
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          src: 'android-chrome-512x512.png',
+          src: '/android-chrome-512x512.png',
           sizes: '512x512',
           type: 'image/png',
         },
       ],
     },
     workbox: {
+      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
       runtimeCaching: [
         {
           urlPattern: ({ request }) => request.destination === 'image',
@@ -50,6 +61,10 @@ export default defineNuxtConfig({
           },
         },
       ],
+    },
+     client: {
+      installPrompt: true,
+      periodicSyncForUpdates: 20,
     },
   },
   runtimeConfig: {

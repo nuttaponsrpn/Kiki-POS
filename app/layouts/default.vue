@@ -28,7 +28,7 @@ const showLogoutConfirm = ref(false)
 </script>
 
 <template>
-  <div class="flex h-screen bg-gray-100 overflow-hidden">
+  <div class="flex h-[100dvh] bg-gray-100 overflow-hidden">
     <ConfirmModal 
       v-if="showLogoutConfirm"
       title="Sign Out"

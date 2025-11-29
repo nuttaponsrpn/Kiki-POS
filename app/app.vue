@@ -1,6 +1,8 @@
 <template>
   <NuxtLayout>
     <NuxtPage />
-    <PwaInstallPrompt />
+    <ClientOnly>
+      <VitePwaManifest />
+    </ClientOnly>
   </NuxtLayout>
 </template>
