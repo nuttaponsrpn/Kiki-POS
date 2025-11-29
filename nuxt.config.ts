@@ -93,7 +93,7 @@ export default defineNuxtConfig({
       title: 'Kiki POS - Modern Point of Sale',
       meta: [
         { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, interactive-widget=resizes-content' },
         { name: 'description', content: 'Efficient and modern Point of Sale system for your business. Manage sales, products, and analytics with ease.' },
         { name: 'theme-color', content: '#F4C430' }
       ],
