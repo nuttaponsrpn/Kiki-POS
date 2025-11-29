@@ -109,7 +109,7 @@ const filteredProducts = computed(() => {
         @click="isCartOpen = true"
         class="w-full bg-kiki-yellow text-black p-4 rounded-xl shadow-lg flex justify-between items-center font-bold"
       >
-        <span>View Cart ({{ cart.length }} items)</span>
+        <span>รายการที่สั่ง ({{ cart.length }} รายการ)</span>
         <span>${{ total }}</span>
       </button>
     </div>
