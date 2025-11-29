@@ -41,12 +41,22 @@ const handleConfirm = () => {
   }
 }
 
+const cashInputRef = ref<HTMLInputElement | null>(null)
+
 // Reset input when modal opens
 watch(() => props.isOpen, (newVal) => {
   if (newVal) {
     cashReceived.value = null
     discount.value = null
     paymentMethod.value = 'transfer'
+  }
+})
+
+// Focus input when switching to cash
+watch(paymentMethod, async (newMethod) => {
+  if (newMethod === 'cash') {
+    await nextTick()
+    cashInputRef.value?.focus()
   }
 })
 </script>
@@ -128,13 +138,13 @@ watch(() => props.isOpen, (newVal) => {
               <span class="text-gray-400 text-lg font-bold">฿</span>
             </div>
             <input
+              ref="cashInputRef"
               v-model="cashReceived"
               type="number"
               step="0.01"
               class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-kiki-yellow focus:border-kiki-yellow text-lg"
               placeholder="0.00"
               @keyup.enter="handleConfirm"
-              autofocus
             />
           </div>
         </div>
