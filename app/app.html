@@ -11,65 +11,11 @@
       padding: 0;
       font-family: system-ui, -apple-system, sans-serif;
     }
-
-    .kiki-loader {
-      position: fixed;
-      inset: 0;
-      background-color: #FDC12D;
-      /* Kiki Yellow */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .logo-container {
-      width: 120px;
-      height: 120px;
-      margin-bottom: 1rem;
-      animation: pulse 2s infinite ease-in-out;
-    }
-
-    .logo-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .loading-text {
-      color: #E94E34;
-      font-weight: bold;
-      font-size: 1.5rem;
-      letter-spacing: 0.05em;
-      font-family: 'Outfit', system-ui, -apple-system, sans-serif;
-    }
-
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.05);
-      }
-
-      100% {
-        transform: scale(1);
-      }
-    }
   </style>
 </head>
 
 <body>
-  <div id="__nuxt">
-    <div class="kiki-loader">
-      <div class="logo-container">
-        <img src="/android-chrome-192x192.png" alt="Kiki POS Logo">
-      </div>
-      <div class="loading-text">KIKI POS</div>
-    </div>
-  </div>
+  <div id="__nuxt"></div>
 </body>
 
 </html>
