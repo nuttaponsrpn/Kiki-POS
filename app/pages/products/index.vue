@@ -123,11 +123,7 @@ const confirmDelete = async () => {
           <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
           <tr>
             <th class="px-6 py-3 w-[80px]">รูปภาพ</th>
-            <th class="px-6 py-3 min-w-[350px]">ชื่อสินค้า</th>
-            <th class="px-6 py-3 min-w-[180px]">ประเภทสินค้า</th>
-            <th class="px-6 py-3 min-w-[120px]">ราคา</th>
-            <th class="px-6 py-3 min-w-[100px]">สต็อก</th>
-            <th class="px-6 py-3 text-right min-w-[135px] text-center">การดำเนินการ</th>
+            <th class="px-6 py-3">รายละเอียดสินค้า</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
@@ -135,9 +131,9 @@ const confirmDelete = async () => {
             <td colspan="6" class="px-6 py-4">Loading...</td>
           </tr>
           <tr v-else-if="filteredProducts.length === 0">
-            <td colspan="6" class="px-6 py-4 text-center text-gray-500">No products found</td>
+            <td colspan="2" class="px-6 py-4 text-center text-gray-500">No products found</td>
           </tr>
-          <tr v-for="product in filteredProducts" :key="product.id" class="hover:bg-gray-50">
+          <tr v-for="product in filteredProducts" :key="product.id" @click="openModal(product)" class="hover:bg-gray-50 cursor-pointer">
             <td class="px-6 py-4">
               <div class="h-10 w-10 rounded bg-gray-100 flex items-center justify-center overflow-hidden">
                 <img v-if="product.image_url" :src="product.image_url" class="h-full w-full object-cover" alt="" />
@@ -145,23 +141,22 @@ const confirmDelete = async () => {
               </div>
             </td>
             <td class="px-6 py-4">
-              <div class="font-medium text-gray-900">{{ product.name }}</div>
-              <div class="text-sm text-gray-500">{{ product.barcode }}</div>
-            </td>
-            <td class="px-6 py-4 text-gray-500">{{ product.category }}</td>
-            <td class="px-6 py-4 font-medium">{{ product.price }}</td>
-            <td class="px-6 py-4">
-              <span :class="{'text-red-600 font-bold': product.stock < 5, 'text-green-600': product.stock >= 5}">
-                {{ product.stock }}
-              </span>
-            </td>
-            <td class="px-6 py-4 space-x-2 text-center">
-              <button @click="openModal(product)" class="text-primary-600 hover:text-primary-900 mr-3">
-                <Pencil class="w-4 h-4" />
-              </button>
-              <button @click="handleDelete(product.id)" class="text-red-600 hover:text-red-900">
-                <Trash2 class="w-4 h-4" />
-              </button>
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <div class="font-medium text-gray-900">{{ product.name }}</div>
+                  <span class="px-2 py-0.5 rounded-full bg-gray-100 text-xs font-medium text-gray-600">
+                    {{ product.category }}
+                  </span>
+                </div>
+                <div class="text-xs text-gray-500">{{ product.barcode }}</div>
+                <div class="flex items-center gap-2 mt-1 text-sm">
+                  <span class="font-bold text-gray-900">฿{{ product.price }}</span>
+                  <span class="text-gray-300">•</span>
+                  <span :class="{'text-red-600 font-bold': product.stock < 5, 'text-green-600': product.stock >= 5}">
+                    {{ product.stock }} ชิ้น
+                  </span>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -175,6 +170,7 @@ const confirmDelete = async () => {
       :product="editingProduct" 
       @close="showModal = false" 
       @save="fetchProducts(); showModal = false"
+      @delete="handleDelete"
     />
 
     <ConfirmModal
