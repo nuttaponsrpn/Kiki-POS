@@ -37,7 +37,11 @@ const confirmDelete = async () => {
 }
 
 const formatDate = (dateString: string): string => {
-  return new Date(dateString).toLocaleString()
+  return new Date(dateString).toLocaleDateString()
+}
+
+const formatTime = (dateString: string): string => {
+  return new Date(dateString).toLocaleTimeString()
 }
 
 const showDeleteConfirm = ref(false)
@@ -50,52 +54,57 @@ const orderToDelete = ref<string | null>(null)
 
     <div class="bg-white rounded-lg shadow overflow-hidden">
       <div class="overflow-x-auto">
-        <table class="w-full text-left min-w-[600px]">
+      <table class="w-full text-left">
         <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
           <tr>
-            <th class="pl-6 py-3 w-[220px]">วันที่</th>
-            <th class="pl-6 py-3 w-[120px]">วิธีการชำระเงิน</th>
-            <th class="pl-6 py-3 text-right">รวม</th>
-            <th class="px-6 py-3"></th>
+            <th class="pl-4 py-2 w-[130px]">วันที่</th>
+            <th class="pl-4 py-2 text-left">ยอดรวม</th>
+            <th class="px-4 py-2 w-[60px]"></th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
           <tr v-if="loading" class="text-center py-4">
-            <td colspan="4" class="px-6 py-4">กำลังโหลดรายการ...</td>
+            <td colspan="3" class="px-4 py-2">กำลังโหลดรายการ...</td>
           </tr>
           <tr v-else-if="orders.length === 0">
-            <td colspan="4" class="px-6 py-4 text-center text-gray-500">ไม่พบรายการขาย</td>
+            <td colspan="3" class="px-4 py-2 text-center text-gray-500">ไม่พบรายการขาย</td>
           </tr>
           <template v-for="order in orders" :key="order.id">
             <tr class="hover:bg-gray-50 cursor-pointer" @click="toggleExpand(order.id)">
-              <td class="pl-6 py-4 text-gray-900">
-                {{ formatDate(order.created_at) }}
+              <td class="pl-4 py-2 text-gray-900 align-top">
+                <div class="font-medium">{{ formatDate(order.created_at) }}</div>
+                <div class="text-xs text-gray-500">{{ formatTime(order.created_at) }}</div>
               </td>
-              <td class="pl-6 py-4">
-                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                  {{ order.payment_method === 'transfer' ? 'เงินโอน' : 'เงินสด' }}
-                </span>
+              <td class="pl-4 py-2 text-left align-top">
+                <div class="flex flex-col items-start gap-1">
+                  <span class="font-bold text-gray-900 text-lg">฿{{ order.total_amount }}</span>
+                  <span v-if="(order.discount || 0) > 0" class="text-xs text-red-500 font-medium">
+                    ส่วนลด -฿{{ order.discount }}
+                  </span>
+                  <span class="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-green-100 text-green-800 mt-1">
+                    {{ order.payment_method === 'transfer' ? 'เงินโอน' : 'เงินสด' }}
+                  </span>
+                </div>
               </td>
-              <td class="pl-6 py-4 text-right font-bold text-gray-900">
-                ฿{{ order.total_amount }}
-              </td>
-              <td class="px-6 py-4 text-right text-gray-400 space-x-2">
-                <button 
-                  @click="handleDelete(order.id, $event)" 
-                  class="p-1 text-gray-400 hover:text-red-600 transition-colors"
-                  title="Delete Order"
-                >
-                  <Trash2 class="w-4 h-4" />
-                </button>
-                <span class="inline-block">
-                  <ChevronUp v-if="expandedOrders.has(order.id)" class="w-4 h-4" />
-                  <ChevronDown v-else class="w-4 h-4" />
-                </span>
+              <td class="px-4 py-2 align-middle border-l border-gray-200">
+                <div class="flex items-center gap-3 justify-center">
+                   <button 
+                    @click="handleDelete(order.id, $event)" 
+                    class="p-1 text-gray-400 hover:text-red-600 transition-colors"
+                    title="Delete Order"
+                  >
+                    <Trash2 class="w-4 h-4" />
+                  </button>
+                  <span class="inline-block text-gray-400">
+                    <ChevronUp v-if="expandedOrders.has(order.id)" class="w-4 h-4" />
+                    <ChevronDown v-else class="w-4 h-4" />
+                  </span>
+                </div>
               </td>
             </tr>
             <!-- Expanded Details -->
             <tr v-if="expandedOrders.has(order.id)" class="bg-gray-50">
-              <td colspan="4" class="px-6 py-4">
+              <td colspan="3" class="px-4 py-2">
                 <div class="text-sm text-gray-600 mb-2 font-medium">Order Items:</div>
                 <ul class="space-y-1 pl-4">
                   <li v-for="item in order.order_items" :key="item.id" class="flex justify-between text-sm">

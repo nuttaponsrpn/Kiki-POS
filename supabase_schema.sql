@@ -18,6 +18,7 @@ create table orders (
   id uuid default uuid_generate_v4() primary key,
   total_amount numeric not null default 0,
   payment_method text not null, -- 'cash', 'transfer', etc.
+  discount numeric default 0,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 

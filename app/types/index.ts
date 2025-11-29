@@ -30,6 +30,7 @@ export interface Order {
   id: string
   total_amount: number
   payment_method: string
+  discount?: number
   created_at: string
   order_items?: OrderItem[]
 }
