@@ -10,12 +10,22 @@ export const useCart = (): {
 } => {
   const cart = useState<CartItem[]>('cart', () => [])
   
+  const { showAlert } = useAlert()
+
   const addToCart = (product: Product) => {
     const existing = cart.value.find(item => item.product.id === product.id)
     if (existing) {
-      existing.quantity++
+      if (existing.quantity < product.stock) {
+        existing.quantity++
+      } else {
+        showAlert('สินค้าหมด', 'สินค้าหมดสต็อกแล้ว', 'error')
+      }
     } else {
-      cart.value.push({ product, quantity: 1 })
+      if (product.stock > 0) {
+        cart.value.push({ product, quantity: 1 })
+      } else {
+        showAlert('สินค้าหมด', 'สินค้าหมดสต็อกแล้ว', 'error')
+      }
     }
   }
 
@@ -26,7 +36,13 @@ export const useCart = (): {
   const updateQuantity = (productId: string, delta: number) => {
     const item = cart.value.find(item => item.product.id === productId)
     if (item) {
-      item.quantity += delta
+      const newQuantity = item.quantity + delta
+      if (newQuantity > item.product.stock) {
+        showAlert('สินค้าหมด', 'สินค้าหมดสต็อกแล้ว', 'error')
+        return
+      }
+      
+      item.quantity = newQuantity
       if (item.quantity <= 0) {
         removeFromCart(productId)
       }

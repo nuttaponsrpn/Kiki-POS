@@ -10,9 +10,9 @@ export const useProducts = (): {
   deleteProduct: (id: string) => Promise<void>
 } => {
   const supabase = useSupabase()
-  const products = ref<Product[]>([])
-  const loading = ref(false)
-  const error = ref<string | null>(null)
+  const products = useState<Product[]>('products', () => [])
+  const loading = useState<boolean>('products-loading', () => false)
+  const error = useState<string | null>('products-error', () => null)
 
   const fetchProducts = async () => {
     if (!supabase) return

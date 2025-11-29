@@ -50,14 +50,37 @@ const confirmPayment = async (payload: { cashReceived: number, change: number, p
 
     if (itemsError) throw itemsError
 
-    // 3. Update Stock (Optional, but good)
-    // For simplicity, we skip atomic stock updates in this batch, 
-    // but in real app we should use RPC or iterate.
+    // 3. Update Stock
     for (const item of cart.value) {
-      const newStock = item.product.stock - item.quantity
-      await supabase.from('products').update({ stock: newStock }).eq('id', item.product.id)
+      // Fetch latest stock to ensure accuracy
+      const { data: productData, error: productError } = await supabase
+        .from('products')
+        .select('stock')
+        .eq('id', item.product.id)
+        .single()
+      
+      if (productError) {
+        console.error(`Failed to fetch stock for product ${item.product.id}`, productError)
+        continue
+      }
+
+      const currentStock = productData?.stock || 0
+      const newStock = Math.max(0, currentStock - item.quantity)
+
+      const { error: updateError } = await supabase
+        .from('products')
+        .update({ stock: newStock })
+        .eq('id', item.product.id)
+      
+      if (updateError) {
+        console.error(`Failed to update stock for product ${item.product.id}`, updateError)
+      }
     }
 
+    // 4. Refresh Products & Clear Cart
+    const { fetchProducts } = useProducts()
+    await fetchProducts()
+    
     clearCart()
     emit('close')
   } catch (e: unknown) {
@@ -102,7 +125,14 @@ const confirmPayment = async (payload: { cashReceived: number, change: number, p
               <Minus class="w-4 h-4" />
             </button>
             <span class="px-2 text-sm font-medium min-w-[1.5rem] text-center">{{ item.quantity }}</span>
-            <button @click="updateQuantity(item.product.id, 1)" class="p-2 hover:bg-gray-100 active:bg-gray-200 rounded-r-lg touch-manipulation">
+            <button 
+              @click="updateQuantity(item.product.id, 1)" 
+              :disabled="item.quantity >= item.product.stock"
+              :class="[
+                'p-2 rounded-r-lg touch-manipulation',
+                item.quantity >= item.product.stock ? 'text-gray-300 cursor-not-allowed' : 'hover:bg-gray-100 active:bg-gray-200'
+              ]"
+            >
               <Plus class="w-4 h-4" />
             </button>
           </div>
