@@ -72,12 +72,12 @@ const confirmPayment = async (payload: { cashReceived: number, change: number, p
           class="text-xs text-red-500 hover:text-red-700 font-medium flex items-center gap-1"
         >
           <Trash2 class="w-3 h-3" />
-          Clear All
+          ล้างตะกร้า
         </button>
       </div>
 
       <div v-if="cart.length === 0" class="text-center text-gray-500 mt-10">
-        Cart is empty
+        ตะกร้าว่างเปล่า
       </div>
       
       <div v-for="item in cart" :key="item.product.id" class="flex gap-3 bg-gray-50 p-3 rounded-lg">
@@ -106,7 +106,7 @@ const confirmPayment = async (payload: { cashReceived: number, change: number, p
 
     <div class="p-4 border-t border-gray-200 bg-gray-50">
       <div class="flex justify-between items-center mb-4">
-        <span class="text-gray-600">Total</span>
+        <span class="text-gray-600">รวม</span>
         <span class="text-2xl font-bold text-kiki-red">${{ total }}</span>
       </div>
       
@@ -115,7 +115,7 @@ const confirmPayment = async (payload: { cashReceived: number, change: number, p
         :disabled="cart.length === 0 || processing"
         class="w-full py-3 bg-kiki-yellow text-black rounded-lg font-bold hover:bg-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {{ processing ? 'Processing...' : 'Charge' }}
+        {{ processing ? 'กำลังดำเนินการ...' : 'ชำระเงิน' }}
       </button>
     </div>
 

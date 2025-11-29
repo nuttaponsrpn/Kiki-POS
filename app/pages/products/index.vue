@@ -82,7 +82,7 @@ const confirmDelete = async () => {
         <input 
           v-model="searchQuery"
           type="text" 
-          placeholder="Search products..." 
+          placeholder="ค้นหาสินค้า..." 
           class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
         >
       </div>
@@ -122,11 +122,11 @@ const confirmDelete = async () => {
         <table class="w-full text-left min-w-[600px]">
           <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
           <tr>
-            <th class="px-6 py-3">Image</th>
-            <th class="px-6 py-3">Name</th>
-            <th class="px-6 py-3">Category</th>
-            <th class="px-6 py-3">Price</th>
-            <th class="px-6 py-3">Stock</th>
+            <th class="px-6 py-3">รูปภาพ</th>
+            <th class="px-6 py-3">ชื่อสินค้า</th>
+            <th class="px-6 py-3">ประเภทสินค้า</th>
+            <th class="px-6 py-3">ราคา</th>
+            <th class="px-6 py-3">สต็อก</th>
             <th class="px-6 py-3 text-right">Actions</th>
           </tr>
         </thead>
@@ -179,9 +179,9 @@ const confirmDelete = async () => {
 
     <ConfirmModal
       v-if="showDeleteConfirm"
-      title="Delete Product"
-      message="Are you sure you want to delete this product? This action cannot be undone."
-      confirm-text="Delete"
+      title="ลบสินค้า"
+      message="คุณต้องการลบสินค้าหรือไม่?"
+      confirm-text="ลบ"
       type="danger"
       @confirm="confirmDelete"
       @cancel="showDeleteConfirm = false"

@@ -5,10 +5,10 @@ const { user, logout } = useAuth()
 const isSidebarOpen = ref(false)
 
 const allLinks = [
-  { name: 'Dashboard', icon: BarChart3, to: '/dashboard', roles: ['admin'] },
+  { name: 'แดชบอร์ด', icon: BarChart3, to: '/dashboard', roles: ['admin'] },
   { name: 'POS', icon: LayoutGrid, to: '/', roles: ['admin', 'user'] },
-  { name: 'Products', icon: Package, to: '/products', roles: ['admin'] },
-  { name: 'History', icon: History, to: '/history', roles: ['admin', 'user'] },
+  { name: 'รายการสินค้า', icon: Package, to: '/products', roles: ['admin'] },
+  { name: 'ประวัติการขาย', icon: History, to: '/history', roles: ['admin', 'user'] },
 ]
 
 const links = computed(() => {
@@ -31,9 +31,9 @@ const showLogoutConfirm = ref(false)
   <div class="flex h-[100dvh] bg-gray-100 overflow-hidden">
     <ConfirmModal 
       v-if="showLogoutConfirm"
-      title="Sign Out"
-      message="Are you sure you want to sign out of your account?"
-      confirm-text="Sign Out"
+      title="ลงชื่อออก"
+      message="คุณต้องการลงชื่อออกหรือไม่?"
+      confirm-text="ลงชื่อออก"
       type="danger"
       @confirm="confirmLogout"
       @cancel="showLogoutConfirm = false"
@@ -96,7 +96,7 @@ const showLogoutConfirm = ref(false)
           class="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg w-full transition-colors text-sm font-medium"
         >
           <LogOut class="w-4 h-4" />
-          Sign Out
+          ลงชื่อออก
         </button>
       </div>
     </aside>

@@ -65,7 +65,7 @@ const orderToDelete = ref<string | null>(null)
             <td colspan="5" class="px-6 py-4">Loading...</td>
           </tr>
           <tr v-else-if="orders.length === 0">
-            <td colspan="5" class="px-6 py-4 text-center text-gray-500">No orders found</td>
+            <td colspan="5" class="px-6 py-4 text-center text-gray-500">ไม่พบรายการขาย</td>
           </tr>
           <template v-for="order in orders" :key="order.id">
             <tr class="hover:bg-gray-50 cursor-pointer" @click="toggleExpand(order.id)">
@@ -119,9 +119,9 @@ const orderToDelete = ref<string | null>(null)
 
     <ConfirmModal
       v-if="showDeleteConfirm"
-      title="Delete Order"
-      message="Are you sure you want to delete this order? This action cannot be undone and will restore product stock."
-      confirm-text="Delete"
+      title="ลบรายการขาย"
+      message="คุณต้องการลบรายการขายหรือไม่?"
+      confirm-text="ลบ"
       type="danger"
       @confirm="confirmDelete"
       @cancel="showDeleteConfirm = false"

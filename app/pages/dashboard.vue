@@ -7,7 +7,7 @@ const getToday = () => new Date().toISOString().split('T')[0]
 
 const startDate = ref(getToday())
 const endDate = ref(getToday())
-const activeFilter = ref('Today')
+const activeFilter = ref('วันนี้')
 
 const setQuickFilter = (filter: string) => {
   activeFilter.value = filter
@@ -15,12 +15,12 @@ const setQuickFilter = (filter: string) => {
   const end = today.toISOString().split('T')[0]
   let start = end
 
-  if (filter === 'This Week') {
+  if (filter === 'สัปดาห์นี้') {
     const day = today.getDay()
     const diff = today.getDate() - day + (day === 0 ? -6 : 1) // adjust when day is sunday
     const monday = new Date(today.setDate(diff))
     start = monday.toISOString().split('T')[0]
-  } else if (filter === 'This Month') {
+  } else if (filter === 'เดือนนี้') {
     start = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0]
   }
 
@@ -55,10 +55,10 @@ onMounted(() => {
 })
 
 const cards = computed(() => [
-  { label: 'Today\'s Sales', value: `$${stats.value.today.toFixed(2)}`, icon: DollarSign, color: 'bg-green-500' },
-  { label: 'This Week', value: `$${stats.value.week.toFixed(2)}`, icon: TrendingUp, color: 'bg-blue-500' },
+  { label: 'ยอดขายวันนี้', value: `$${stats.value.today.toFixed(2)}`, icon: DollarSign, color: 'bg-green-500' },
+  { label: 'สัปดาห์นี้', value: `$${stats.value.week.toFixed(2)}`, icon: TrendingUp, color: 'bg-blue-500' },
   { 
-    label: startDate.value && endDate.value ? 'Selected Period' : 'This Month', 
+    label: startDate.value && endDate.value ? 'ช่วงเวลาที่เลือก' : 'เดือนนี้', 
     value: `$${stats.value.month.toFixed(2)}`, 
     icon: Calendar, 
     color: 'bg-purple-500' 
@@ -70,13 +70,13 @@ const cards = computed(() => [
   <div class="h-full overflow-y-auto">
     <div class="p-4 lg:p-10 max-w-7xl mx-auto pb-32">
       <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center mb-6 gap-4">
-        <h1 class="text-2xl lg:text-3xl font-bold text-gray-800">Dashboard</h1>
+        <h1 class="text-2xl lg:text-3xl font-bold text-gray-800">แดชบอร์ด</h1>
         
         <div class="flex flex-col w-full xl:w-auto gap-3">
           <!-- Quick Filters -->
           <div class="flex overflow-x-auto pb-1 xl:pb-0 bg-white p-1 rounded-lg shadow-sm border border-gray-200 scrollbar-hide">
             <button 
-              v-for="filter in ['Today', 'This Week', 'This Month']" 
+              v-for="filter in ['วันนี้', 'สัปดาห์นี้', 'เดือนนี้']" 
               :key="filter"
               @click="setQuickFilter(filter)"
               :class="[
@@ -101,7 +101,7 @@ const cards = computed(() => [
                 <Calendar class="w-4 h-4 text-gray-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
               
-              <span class="text-gray-400 font-medium text-center hidden sm:block">to</span>
+              <span class="text-gray-400 font-medium text-center hidden sm:block">ถึง</span>
               
               <div class="relative flex-1">
                 <input 
@@ -120,7 +120,7 @@ const cards = computed(() => [
               @click="applyFilter"
               class="w-full sm:w-auto bg-kiki-yellow text-black px-4 py-1.5 rounded-md text-sm font-medium hover:bg-primary-500 transition-colors shadow-sm"
             >
-              Apply
+              ตกลง
             </button>
           </div>
         </div>
@@ -145,12 +145,12 @@ const cards = computed(() => [
           <div class="p-2 bg-primary-100 rounded-lg text-primary-600 shrink-0">
             <ShoppingBag class="w-6 h-6" />
           </div>
-          <span class="leading-tight py-1">Top Selling Products <span class="text-gray-500 font-normal text-base block sm:inline sm:ml-1">(This Month)</span></span>
+          <span class="leading-tight py-1">สินค้าขายดี <span class="text-gray-500 font-normal text-base block sm:inline sm:ml-1">(เดือนนี้)</span></span>
         </h2>
         
-        <div v-if="loading" class="text-center py-12 text-gray-500">Loading stats...</div>
+        <div v-if="loading" class="text-center py-12 text-gray-500">กำลังโหลดข้อมูล...</div>
         <div v-else-if="stats.topProducts.length === 0" class="text-center py-12 text-gray-500 bg-gray-50 rounded-xl border border-dashed border-gray-200">
-          No sales data available for this month.
+          ไม่มีข้อมูลการขายสำหรับเดือนนี้
         </div>
         
         <div v-else class="space-y-6">
@@ -161,7 +161,7 @@ const cards = computed(() => [
             <div class="flex-1 min-w-0">
               <div class="flex justify-between mb-1 md:mb-2 items-end gap-2">
                 <span class="font-semibold text-gray-900 text-base md:text-lg truncate">{{ product.name }}</span>
-                <span class="text-primary-600 font-bold bg-primary-100 px-2 py-0.5 md:px-3 md:py-1 rounded-full text-xs md:text-sm whitespace-nowrap">{{ product.quantity }} sold</span>
+                <span class="text-primary-600 font-bold bg-primary-100 px-2 py-0.5 md:px-3 md:py-1 rounded-full text-xs md:text-sm whitespace-nowrap">{{ product.quantity }} ชิ้น</span>
               </div>
               <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
                 <div 

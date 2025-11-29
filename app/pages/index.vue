@@ -48,7 +48,7 @@ const filteredProducts = computed(() => {
           <input 
             v-model="searchQuery"
             type="text" 
-            placeholder="Search products..." 
+            placeholder="ค้นหาสินค้า..." 
             class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           >
         </div>
@@ -98,7 +98,7 @@ const filteredProducts = computed(() => {
     <!-- Right Sidebar (Desktop Cart) -->
     <div class="hidden lg:flex w-96 bg-white border-l border-gray-200 flex-col shadow-xl z-10 h-full">
       <div class="p-4 border-b border-gray-200">
-        <h2 class="text-lg font-bold">Current Order</h2>
+        <h2 class="text-lg font-bold">รายการที่สั่ง</h2>
       </div>
       <CartSidebar />
     </div>
@@ -119,7 +119,7 @@ const filteredProducts = computed(() => {
       <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm" @click="isCartOpen = false"></div>
       <div class="absolute inset-y-0 right-0 w-full max-w-sm bg-white flex flex-col shadow-2xl transform transition-transform h-full">
         <div class="p-4 border-b border-gray-200 flex justify-between items-center bg-white z-10">
-          <h2 class="text-lg font-bold">Current Order</h2>
+          <h2 class="text-lg font-bold">รายการที่สั่ง</h2>
           <button 
             @click="isCartOpen = false" 
             class="p-2 -mr-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full"
