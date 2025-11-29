@@ -74,7 +74,7 @@ const cards = computed(() => [
         
         <div class="flex flex-col w-full xl:w-auto gap-3">
           <!-- Quick Filters -->
-          <div class="flex overflow-x-auto pb-1 xl:pb-0 bg-white p-1 rounded-lg shadow-sm border border-gray-200 scrollbar-hide">
+          <div class="flex overflow-x-auto pb-1 bg-white p-1 rounded-lg shadow-sm border border-gray-200 scrollbar-hide">
             <button 
               v-for="filter in ['วันนี้', 'สัปดาห์นี้', 'เดือนนี้']" 
               :key="filter"

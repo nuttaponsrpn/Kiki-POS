@@ -72,37 +72,37 @@ const handleSubmit = async () => {
         <X class="w-5 h-5" />
       </button>
       
-      <h2 class="text-xl font-bold mb-4">{{ product ? 'Edit Product' : 'New Product' }}</h2>
+      <h2 class="text-xl font-bold mb-4">{{ product ? 'แก้ไขสินค้า' : 'สินค้าใหม่' }}</h2>
       
       <form @submit.prevent="handleSubmit" class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700">Name</label>
+          <label class="block text-sm font-medium text-gray-700">ชื่อสินค้า</label>
           <input v-model="form.name" required type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm border p-2">
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700">Price</label>
+            <label class="block text-sm font-medium text-gray-700">ราคา</label>
             <input v-model="form.price" required type="number" step="0.01" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm border p-2">
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700">Stock</label>
+            <label class="block text-sm font-medium text-gray-700">สต็อก</label>
             <input v-model="form.stock" required type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm border p-2">
           </div>
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700">Category</label>
+          <label class="block text-sm font-medium text-gray-700">ประเภทสินค้า</label>
           <input v-model="form.category" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm border p-2">
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700">Barcode</label>
+          <label class="block text-sm font-medium text-gray-700">บาร์โค้ด</label>
           <input v-model="form.barcode" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm border p-2">
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700">Image URL</label>
+          <label class="block text-sm font-medium text-gray-700">รูปภาพ</label>
           <input v-model="form.image_url" type="url" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm border p-2" placeholder="https://example.com/image.jpg">
           
           <div v-if="form.image_url" class="mt-3">

@@ -62,7 +62,7 @@ const orderToDelete = ref<string | null>(null)
         </thead>
         <tbody class="divide-y divide-gray-200">
           <tr v-if="loading" class="text-center py-4">
-            <td colspan="5" class="px-6 py-4">Loading...</td>
+            <td colspan="5" class="px-6 py-4">กำลังโหลดรายการ...</td>
           </tr>
           <tr v-else-if="orders.length === 0">
             <td colspan="5" class="px-6 py-4 text-center text-gray-500">ไม่พบรายการขาย</td>

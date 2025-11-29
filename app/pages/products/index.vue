@@ -71,7 +71,7 @@ const confirmDelete = async () => {
         class="bg-kiki-yellow text-black px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary-500 font-medium"
       >
         <Plus class="w-4 h-4" />
-        Add Product
+        เพิ่มสินค้า
       </button>
     </div>
 
@@ -127,7 +127,7 @@ const confirmDelete = async () => {
             <th class="px-6 py-3">ประเภทสินค้า</th>
             <th class="px-6 py-3">ราคา</th>
             <th class="px-6 py-3">สต็อก</th>
-            <th class="px-6 py-3 text-right">Actions</th>
+            <th class="px-6 py-3 text-right">การดำเนินการ</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
