@@ -73,7 +73,7 @@ const orderToDelete = ref<string | null>(null)
               </td>
               <td class="pl-6 py-4">
                 <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                  {{ order.payment_method }}
+                  {{ order.payment_method === 'transfer' ? 'เงินโอน' : 'เงินสด' }}
                 </span>
               </td>
               <td class="pl-6 py-4 text-right font-bold text-gray-900">
