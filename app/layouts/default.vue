@@ -102,7 +102,7 @@ const showLogoutConfirm = ref(false)
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col min-w-0 overflow-hidden pt-16 lg:pt-0">
+    <main class="flex-1 flex flex-col min-w-0 overflow-y-auto pt-16 lg:pt-0">
       <slot />
     </main>
   </div>
