@@ -131,7 +131,7 @@ const filteredProducts = computed(() => {
           </button>
         </div>
         <div class="flex-1 overflow-hidden relative">
-          <CartSidebar />
+          <CartSidebar @close="isCartOpen = false" />
         </div>
       </div>
     </div>

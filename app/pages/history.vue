@@ -46,41 +46,37 @@ const orderToDelete = ref<string | null>(null)
 
 <template>
   <div class="p-6">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6">Sales History</h1>
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">ประวัติการขาย</h1>
 
     <div class="bg-white rounded-lg shadow overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-left min-w-[600px]">
         <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
           <tr>
-            <th class="px-6 py-3">Date</th>
-            <th class="px-6 py-3">Order ID</th>
-            <th class="px-6 py-3">Payment</th>
-            <th class="px-6 py-3 text-right">Total</th>
+            <th class="pl-6 py-3 w-[220px]">วันที่</th>
+            <th class="pl-6 py-3 w-[120px]">วิธีการชำระเงิน</th>
+            <th class="pl-6 py-3 text-right">รวม</th>
             <th class="px-6 py-3"></th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
           <tr v-if="loading" class="text-center py-4">
-            <td colspan="5" class="px-6 py-4">กำลังโหลดรายการ...</td>
+            <td colspan="4" class="px-6 py-4">กำลังโหลดรายการ...</td>
           </tr>
           <tr v-else-if="orders.length === 0">
-            <td colspan="5" class="px-6 py-4 text-center text-gray-500">ไม่พบรายการขาย</td>
+            <td colspan="4" class="px-6 py-4 text-center text-gray-500">ไม่พบรายการขาย</td>
           </tr>
           <template v-for="order in orders" :key="order.id">
             <tr class="hover:bg-gray-50 cursor-pointer" @click="toggleExpand(order.id)">
-              <td class="px-6 py-4 text-gray-900">
+              <td class="pl-6 py-4 text-gray-900">
                 {{ formatDate(order.created_at) }}
               </td>
-              <td class="px-6 py-4 text-gray-500 font-mono text-xs">
-                {{ order.id.slice(0, 8) }}...
-              </td>
-              <td class="px-6 py-4">
+              <td class="pl-6 py-4">
                 <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
                   {{ order.payment_method }}
                 </span>
               </td>
-              <td class="px-6 py-4 text-right font-bold text-gray-900">
+              <td class="pl-6 py-4 text-right font-bold text-gray-900">
                 ${{ order.total_amount }}
               </td>
               <td class="px-6 py-4 text-right text-gray-400 space-x-2">
@@ -99,7 +95,7 @@ const orderToDelete = ref<string | null>(null)
             </tr>
             <!-- Expanded Details -->
             <tr v-if="expandedOrders.has(order.id)" class="bg-gray-50">
-              <td colspan="5" class="px-6 py-4">
+              <td colspan="4" class="px-6 py-4">
                 <div class="text-sm text-gray-600 mb-2 font-medium">Order Items:</div>
                 <ul class="space-y-1 pl-4">
                   <li v-for="item in order.order_items" :key="item.id" class="flex justify-between text-sm">

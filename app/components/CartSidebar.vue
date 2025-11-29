@@ -8,6 +8,8 @@ const supabase = useSupabase()
 const processing = ref(false)
 const showPaymentConfirm = ref(false)
 
+const emit = defineEmits(['close'])
+
 const handleCheckout = () => {
   if (cart.value.length === 0) return
   showPaymentConfirm.value = true
@@ -54,6 +56,7 @@ const confirmPayment = async (payload: { cashReceived: number, change: number, p
     }
 
     clearCart()
+    emit('close')
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : 'Unknown error'
     alert('Checkout failed: ' + message)
