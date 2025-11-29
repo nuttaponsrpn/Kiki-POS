@@ -65,7 +65,7 @@ const confirmDelete = async () => {
 <template>
   <div class="p-6">
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold text-gray-800">Products</h1>
+      <h1 class="text-2xl font-bold text-gray-800">สินค้า</h1>
       <button 
         @click="openModal()"
         class="bg-kiki-yellow text-black px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary-500 font-medium"
@@ -119,15 +119,15 @@ const confirmDelete = async () => {
     <!-- Table -->
     <div class="bg-white rounded-lg shadow overflow-hidden">
       <div class="overflow-x-auto">
-        <table class="w-full text-left min-w-[600px]">
+        <table class="w-full text-left ">
           <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
           <tr>
-            <th class="px-6 py-3">รูปภาพ</th>
-            <th class="px-6 py-3">ชื่อสินค้า</th>
-            <th class="px-6 py-3">ประเภทสินค้า</th>
-            <th class="px-6 py-3">ราคา</th>
-            <th class="px-6 py-3">สต็อก</th>
-            <th class="px-6 py-3 text-right">การดำเนินการ</th>
+            <th class="px-6 py-3 w-[80px]">รูปภาพ</th>
+            <th class="px-6 py-3 min-w-[350px]">ชื่อสินค้า</th>
+            <th class="px-6 py-3 min-w-[180px]">ประเภทสินค้า</th>
+            <th class="px-6 py-3 min-w-[120px]">ราคา</th>
+            <th class="px-6 py-3 min-w-[100px]">สต็อก</th>
+            <th class="px-6 py-3 text-right min-w-[135px] text-center">การดำเนินการ</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
@@ -155,7 +155,7 @@ const confirmDelete = async () => {
                 {{ product.stock }}
               </span>
             </td>
-            <td class="px-6 py-4 text-right space-x-2">
+            <td class="px-6 py-4 space-x-2 text-center">
               <button @click="openModal(product)" class="text-primary-600 hover:text-primary-900 mr-3">
                 <Pencil class="w-4 h-4" />
               </button>
