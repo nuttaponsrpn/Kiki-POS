@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   ssr: false,
-  spaLoadingTemplate: 'app/spa-loading-template.html',
+  spaLoadingTemplate: 'spa-loading-template.html',
   modules: ['@nuxtjs/tailwindcss', '@vite-pwa/nuxt'],
   css: ['~/assets/css/main.css'],
   postcss: {
