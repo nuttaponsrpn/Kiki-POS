@@ -77,7 +77,7 @@ const orderToDelete = ref<string | null>(null)
                 </span>
               </td>
               <td class="pl-6 py-4 text-right font-bold text-gray-900">
-                ${{ order.total_amount }}
+                ฿{{ order.total_amount }}
               </td>
               <td class="px-6 py-4 text-right text-gray-400 space-x-2">
                 <button 
@@ -102,7 +102,7 @@ const orderToDelete = ref<string | null>(null)
                     <span>
                       {{ item.quantity }}x {{ item.products?.name || 'Unknown Product' }}
                     </span>
-                    <span>${{ item.price_at_sale * item.quantity }}</span>
+                    <span>฿{{ item.price_at_sale * item.quantity }}</span>
                   </li>
                 </ul>
               </td>

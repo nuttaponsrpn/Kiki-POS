@@ -20,7 +20,7 @@ defineEmits(['add'])
     </div>
     <h3 class="font-medium text-gray-900 text-sm sm:text-base line-clamp-2 mb-auto">{{ product.name }}</h3>
     <div class="flex justify-between items-center mt-2">
-      <span class="text-kiki-red font-bold text-sm sm:text-base">${{ product.price }}</span>
+      <span class="text-kiki-red font-bold text-sm sm:text-base">฿{{ product.price }}</span>
       <span class="text-xs text-gray-500">คงเหลือ: {{ product.stock }}</span>
     </div>
   </div>

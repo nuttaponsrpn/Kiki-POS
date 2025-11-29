@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { X, DollarSign, Banknote, CreditCard } from 'lucide-vue-next'
+import { X, DollarSign, Banknote, CreditCard, Percent } from 'lucide-vue-next'
 
 const props = defineProps<{
   total: number
@@ -7,21 +7,27 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'confirm', payload: { cashReceived: number, change: number, paymentMethod: 'cash' | 'transfer' }): void
+  (e: 'confirm', payload: { cashReceived: number, change: number, paymentMethod: 'cash' | 'transfer', discount: number }): void
   (e: 'cancel'): void
 }>()
 
 const paymentMethod = ref<'cash' | 'transfer'>('transfer')
 const cashReceived = ref<number | null>(null)
+const discount = ref<number | null>(null)
+
+const grandTotal = computed(() => {
+  const disc = discount.value || 0
+  return Math.max(0, props.total - disc)
+})
 
 const change = computed(() => {
   if (cashReceived.value === null) return 0
-  return Math.max(0, cashReceived.value - props.total)
+  return Math.max(0, cashReceived.value - grandTotal.value)
 })
 
 const isValid = computed(() => {
   if (paymentMethod.value === 'transfer') return true
-  return cashReceived.value !== null && cashReceived.value >= props.total
+  return cashReceived.value !== null && cashReceived.value >= grandTotal.value
 })
 
 const handleConfirm = () => {
@@ -29,7 +35,8 @@ const handleConfirm = () => {
     emit('confirm', {
       cashReceived: cashReceived.value || 0,
       change: change.value,
-      paymentMethod: paymentMethod.value
+      paymentMethod: paymentMethod.value,
+      discount: discount.value || 0
     })
   }
 }
@@ -38,6 +45,7 @@ const handleConfirm = () => {
 watch(() => props.isOpen, (newVal) => {
   if (newVal) {
     cashReceived.value = null
+    discount.value = null
     paymentMethod.value = 'transfer'
   }
 })
@@ -54,10 +62,33 @@ watch(() => props.isOpen, (newVal) => {
       </div>
 
       <div class="space-y-6">
-        <!-- Total Amount -->
-        <div class="bg-gray-50 p-4 rounded-lg text-center">
-          <div class="text-sm text-gray-500 mb-1">ยอดรวมทั้งหมด</div>
-          <div class="text-3xl font-bold text-kiki-red">${{ total.toFixed(2) }}</div>
+        <!-- Amount Breakdown -->
+        <div class="bg-gray-50 p-4 rounded-lg space-y-2">
+          <div class="flex justify-between text-sm text-gray-600">
+            <span>ยอดรวม</span>
+            <span>฿{{ total.toFixed(2) }}</span>
+          </div>
+          
+          <!-- Discount Input -->
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-gray-600">ส่วนลด</span>
+            <div class="relative flex-1">
+              <input
+                v-model="discount"
+                type="number"
+                step="1"
+                min="0"
+                class="w-full pl-6 pr-2 py-1 text-sm border border-gray-300 rounded focus:ring-kiki-yellow focus:border-kiki-yellow text-right"
+                placeholder="0"
+              />
+              <span class="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400 text-xs">฿</span>
+            </div>
+          </div>
+
+          <div class="border-t border-gray-200 pt-2 flex justify-between items-end">
+            <span class="font-bold text-gray-900">ยอดสุทธิ</span>
+            <span class="text-3xl font-bold text-kiki-red">฿{{ grandTotal.toFixed(2) }}</span>
+          </div>
         </div>
 
         <!-- Payment Method Selection -->
@@ -94,7 +125,7 @@ watch(() => props.isOpen, (newVal) => {
           <label class="block text-sm font-medium text-gray-700 mb-2">รับเงินสด</label>
           <div class="relative">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <DollarSign class="h-5 w-5 text-gray-400" />
+              <span class="text-gray-400 text-lg font-bold">฿</span>
             </div>
             <input
               v-model="cashReceived"
@@ -111,7 +142,7 @@ watch(() => props.isOpen, (newVal) => {
         <!-- Change Display -->
         <div v-if="paymentMethod === 'cash'" class="flex justify-between items-center py-4 border-t border-gray-100">
           <span class="text-lg font-medium text-gray-700">เงินทอน</span>
-          <span class="text-2xl font-bold text-green-600">${{ change.toFixed(2) }}</span>
+          <span class="text-2xl font-bold text-green-600">฿{{ change.toFixed(2) }}</span>
         </div>
 
         <!-- Actions -->
@@ -134,3 +165,4 @@ watch(() => props.isOpen, (newVal) => {
     </div>
   </div>
 </template>
+

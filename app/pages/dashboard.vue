@@ -55,11 +55,11 @@ onMounted(() => {
 })
 
 const cards = computed(() => [
-  { label: 'ยอดขายวันนี้', value: `$${stats.value.today.toFixed(2)}`, icon: DollarSign, color: 'bg-green-500' },
-  { label: 'สัปดาห์นี้', value: `$${stats.value.week.toFixed(2)}`, icon: TrendingUp, color: 'bg-blue-500' },
+  { label: 'ยอดขายวันนี้', value: `฿${stats.value.today.toFixed(2)}`, icon: DollarSign, color: 'bg-green-500' },
+  { label: 'สัปดาห์นี้', value: `฿${stats.value.week.toFixed(2)}`, icon: TrendingUp, color: 'bg-blue-500' },
   { 
     label: startDate.value && endDate.value ? 'ช่วงเวลาที่เลือก' : 'เดือนนี้', 
-    value: `$${stats.value.month.toFixed(2)}`, 
+    value: `฿${stats.value.month.toFixed(2)}`, 
     icon: Calendar, 
     color: 'bg-purple-500' 
   },

@@ -15,17 +15,20 @@ const handleCheckout = () => {
   showPaymentConfirm.value = true
 }
 
-const confirmPayment = async (payload: { cashReceived: number, change: number, paymentMethod: 'cash' | 'transfer' }) => {
+const confirmPayment = async (payload: { cashReceived: number, change: number, paymentMethod: 'cash' | 'transfer', discount: number }) => {
   showPaymentConfirm.value = false
   processing.value = true
   try {
     if (!supabase) throw new Error('Supabase client not initialized')
 
+    // Calculate final amount after discount
+    const finalAmount = Math.max(0, total.value - payload.discount)
+
     // 1. Create Order
     const { data: order, error: orderError } = await supabase
       .from('orders')
       .insert({
-        total_amount: total.value,
+        total_amount: finalAmount,
         payment_method: payload.paymentMethod
       })
       .select()
@@ -86,7 +89,7 @@ const confirmPayment = async (payload: { cashReceived: number, change: number, p
       <div v-for="item in cart" :key="item.product.id" class="flex gap-3 bg-gray-50 p-3 rounded-lg">
         <div class="flex-1 min-w-0">
           <h4 class="font-medium text-sm truncate">{{ item.product.name }}</h4>
-          <div class="text-kiki-red font-bold text-sm mt-1">${{ item.product.price * item.quantity }}</div>
+          <div class="text-kiki-red font-bold text-sm mt-1">฿{{ item.product.price * item.quantity }}</div>
         </div>
         
         <div class="flex flex-col items-end gap-2">
@@ -110,7 +113,7 @@ const confirmPayment = async (payload: { cashReceived: number, change: number, p
     <div class="p-4 border-t border-gray-200 bg-gray-50">
       <div class="flex justify-between items-center mb-4">
         <span class="text-gray-600">รวม</span>
-        <span class="text-2xl font-bold text-kiki-red">${{ total }}</span>
+        <span class="text-2xl font-bold text-kiki-red">฿{{ total }}</span>
       </div>
       
       <button 
