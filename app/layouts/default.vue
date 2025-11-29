@@ -63,12 +63,12 @@ const showLogoutConfirm = ref(false)
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       ]"
     >
-      <div class="p-6 border-b border-gray-200 hidden lg:block">
-        <img src="https://scontent.fbkk35-1.fna.fbcdn.net/v/t39.30808-6/413810278_10211154767703037_834009150123622705_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=WxNz7qE-CQsQ7kNvwEK-Hzt&_nc_oc=AdmtImNdbQLoRz-vNVOhud1_xJ2I1C1dxT9o9so3wJWAqvKrBM0sjL1Hzsmr_gfahQFd-jJ_iBugrBQDxLNrFQYn&_nc_zt=23&_nc_ht=scontent.fbkk35-1.fna&_nc_gid=qP3-meSzGy8jdcMZeV6J_g&oh=00_AfjIy_1qURIDenUkjIl-mxxJrflSwHGuRIGbbQFTF0XtQg&oe=6930846C" alt="Kiki POS" class="h-24 w-24 mx-auto rounded-full object-cover shadow-md" />
-        <h1 class="text-xl font-bold text-center mt-4 text-gray-800">Kiki Cheesecake</h1>
+      <div class="p-3 border-b border-gray-200 flex items-center gap-3">
+        <img src="https://scontent.fbkk35-1.fna.fbcdn.net/v/t39.30808-6/413810278_10211154767703037_834009150123622705_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=WxNz7qE-CQsQ7kNvwEK-Hzt&_nc_oc=AdmtImNdbQLoRz-vNVOhud1_xJ2I1C1dxT9o9so3wJWAqvKrBM0sjL1Hzsmr_gfahQFd-jJ_iBugrBQDxLNrFQYn&_nc_zt=23&_nc_ht=scontent.fbkk35-1.fna&_nc_gid=qP3-meSzGy8jdcMZeV6J_g&oh=00_AfjIy_1qURIDenUkjIl-mxxJrflSwHGuRIGbbQFTF0XtQg&oe=6930846C" alt="Kiki POS" class="h-10 w-10 rounded-full object-cover shadow-md" />
+        <h1 class="text-xl font-bold text-gray-800">Kiki Cheesecake</h1>
       </div>
       
-      <nav class="flex-1 p-4 space-y-2 mt-16 lg:mt-0">
+      <nav class="flex-1 p-4 space-y-2">
         <NuxtLink 
           v-for="link in links" 
           :key="link.name" 
