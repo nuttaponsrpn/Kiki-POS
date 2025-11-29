@@ -13,7 +13,7 @@ const handleCheckout = () => {
   showPaymentConfirm.value = true
 }
 
-const confirmPayment = async (payload?: { cashReceived: number, change: number }) => {
+const confirmPayment = async (payload: { cashReceived: number, change: number, paymentMethod: 'cash' | 'transfer' }) => {
   showPaymentConfirm.value = false
   processing.value = true
   try {
@@ -24,7 +24,7 @@ const confirmPayment = async (payload?: { cashReceived: number, change: number }
       .from('orders')
       .insert({
         total_amount: total.value,
-        payment_method: 'cash' // Default for now
+        payment_method: payload.paymentMethod
       })
       .select()
       .single()

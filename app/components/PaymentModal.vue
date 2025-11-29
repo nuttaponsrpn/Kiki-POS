@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { X, DollarSign } from 'lucide-vue-next'
+import { X, DollarSign, Banknote, CreditCard } from 'lucide-vue-next'
 
 const props = defineProps<{
   total: number
@@ -7,10 +7,11 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'confirm', payload: { cashReceived: number, change: number }): void
+  (e: 'confirm', payload: { cashReceived: number, change: number, paymentMethod: 'cash' | 'transfer' }): void
   (e: 'cancel'): void
 }>()
 
+const paymentMethod = ref<'cash' | 'transfer'>('transfer')
 const cashReceived = ref<number | null>(null)
 
 const change = computed(() => {
@@ -19,14 +20,16 @@ const change = computed(() => {
 })
 
 const isValid = computed(() => {
+  if (paymentMethod.value === 'transfer') return true
   return cashReceived.value !== null && cashReceived.value >= props.total
 })
 
 const handleConfirm = () => {
-  if (isValid.value && cashReceived.value !== null) {
+  if (isValid.value) {
     emit('confirm', {
-      cashReceived: cashReceived.value,
-      change: change.value
+      cashReceived: cashReceived.value || 0,
+      change: change.value,
+      paymentMethod: paymentMethod.value
     })
   }
 }
@@ -35,6 +38,7 @@ const handleConfirm = () => {
 watch(() => props.isOpen, (newVal) => {
   if (newVal) {
     cashReceived.value = null
+    paymentMethod.value = 'transfer'
   }
 })
 </script>
@@ -56,8 +60,37 @@ watch(() => props.isOpen, (newVal) => {
           <div class="text-3xl font-bold text-kiki-red">${{ total.toFixed(2) }}</div>
         </div>
 
+        <!-- Payment Method Selection -->
+        <div class="grid grid-cols-2 gap-3">
+          <button 
+            @click="paymentMethod = 'transfer'"
+            :class="[
+              'flex flex-col items-center justify-center p-3 rounded-lg border-2 transition-all',
+              paymentMethod === 'transfer' 
+                ? 'border-kiki-yellow bg-yellow-50 text-black' 
+                : 'border-gray-200 hover:border-gray-300 text-gray-600'
+            ]"
+          >
+            <CreditCard class="w-6 h-6 mb-1" />
+            <span class="font-medium text-sm">Transfer</span>
+          </button>
+          <button 
+            @click="paymentMethod = 'cash'"
+            :class="[
+              'flex flex-col items-center justify-center p-3 rounded-lg border-2 transition-all',
+              paymentMethod === 'cash' 
+                ? 'border-kiki-yellow bg-yellow-50 text-black' 
+                : 'border-gray-200 hover:border-gray-300 text-gray-600'
+            ]"
+          >
+            <Banknote class="w-6 h-6 mb-1" />
+            <span class="font-medium text-sm">Cash</span>
+          </button>
+      
+        </div>
+
         <!-- Cash Input -->
-        <div>
+        <div v-if="paymentMethod === 'cash'">
           <label class="block text-sm font-medium text-gray-700 mb-2">Cash Received</label>
           <div class="relative">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -76,7 +109,7 @@ watch(() => props.isOpen, (newVal) => {
         </div>
 
         <!-- Change Display -->
-        <div class="flex justify-between items-center py-4 border-t border-gray-100">
+        <div v-if="paymentMethod === 'cash'" class="flex justify-between items-center py-4 border-t border-gray-100">
           <span class="text-lg font-medium text-gray-700">Change</span>
           <span class="text-2xl font-bold text-green-600">${{ change.toFixed(2) }}</span>
         </div>

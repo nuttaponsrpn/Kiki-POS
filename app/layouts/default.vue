@@ -5,8 +5,8 @@ const { user, logout } = useAuth()
 const isSidebarOpen = ref(false)
 
 const allLinks = [
-  { name: 'POS', icon: LayoutGrid, to: '/', roles: ['admin', 'user'] },
   { name: 'Dashboard', icon: BarChart3, to: '/dashboard', roles: ['admin'] },
+  { name: 'POS', icon: LayoutGrid, to: '/', roles: ['admin', 'user'] },
   { name: 'Products', icon: Package, to: '/products', roles: ['admin'] },
   { name: 'History', icon: History, to: '/history', roles: ['admin', 'user'] },
 ]
