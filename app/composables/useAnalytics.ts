@@ -7,7 +7,7 @@ export const useAnalytics = () => {
     today: 0,
     week: 0,
     month: 0,
-    topProducts: [] as { name: string; quantity: number }[]
+    topProducts: [] as { name: string; quantity: number; totalIncome: number }[]
   })
 
   const fetchStats = async (startDate?: string, endDate?: string) => {
@@ -23,6 +23,7 @@ export const useAnalytics = () => {
         payment_method,
         order_items (
           quantity,
+          price_at_sale,
           products (name)
         )
       `)
@@ -53,7 +54,7 @@ export const useAnalytics = () => {
     let todayTotal = 0
     let weekTotal = 0
     let periodTotal = 0
-    const productSales: Record<string, number> = {}
+    const productSales: Record<string, { quantity: number; totalIncome: number }> = {}
 
     const now = new Date()
     const todayStr = now.toISOString().split('T')[0]
@@ -80,17 +81,23 @@ export const useAnalytics = () => {
       if (order.order_items) {
         order.order_items.forEach(item => {
           const productName = item.products?.name ?? 'Unknown'
-          if (!productSales[productName]) productSales[productName] = 0
-          productSales[productName] += item.quantity
+          if (!productSales[productName]) {
+            productSales[productName] = { quantity: 0, totalIncome: 0 }
+          }
+          productSales[productName].quantity += item.quantity
+          productSales[productName].totalIncome += item.quantity * (item.price_at_sale || 0)
         })
       }
     })
 
     // Sort top products
     const sortedProducts = Object.entries(productSales)
-      .map(([name, quantity]) => ({ name, quantity }))
+      .map(([name, data]) => ({ 
+        name, 
+        quantity: data.quantity,
+        totalIncome: data.totalIncome
+      }))
       .sort((a, b) => b.quantity - a.quantity)
-      .slice(0, 5)
 
     stats.value = {
       today: todayTotal,

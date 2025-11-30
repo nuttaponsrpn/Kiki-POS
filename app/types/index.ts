@@ -31,6 +31,8 @@ export interface Order {
   total_amount: number
   payment_method: string
   discount?: number
+  cash_received?: number
+  change?: number
   created_at: string
   order_items?: OrderItem[]
 }

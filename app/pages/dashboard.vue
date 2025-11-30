@@ -163,11 +163,14 @@ const cards = computed(() => [
                 <span class="font-semibold text-gray-900 text-base md:text-lg truncate">{{ product.name }}</span>
                 <span class="text-primary-600 font-bold bg-primary-100 px-2 py-0.5 md:px-3 md:py-1 rounded-full text-xs md:text-sm whitespace-nowrap">{{ product.quantity }} ชิ้น</span>
               </div>
-              <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+              <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden mb-1">
                 <div 
                   class="bg-kiki-yellow h-3 rounded-full transition-all duration-500 ease-out" 
                   :style="{ width: `${(product.quantity / stats.topProducts[0].quantity) * 100}%` }"
                 ></div>
+              </div>
+              <div class="text-right">
+                <span class="text-xs md:text-sm font-medium text-gray-500">฿{{ product.totalIncome.toLocaleString() }}</span>
               </div>
             </div>
           </div>

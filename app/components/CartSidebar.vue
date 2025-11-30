@@ -30,7 +30,9 @@ const confirmPayment = async (payload: { cashReceived: number, change: number, p
       .insert({
         total_amount: finalAmount,
         payment_method: payload.paymentMethod,
-        discount: payload.discount
+        discount: payload.discount,
+        cash_received: payload.cashReceived,
+        change: payload.change
       })
       .select()
       .single()
