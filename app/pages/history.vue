@@ -48,9 +48,26 @@ const formatTime = (dateString: string): string => {
 const showDeleteConfirm = ref(false)
 const orderToDelete = ref<string | null>(null)
 
+const selectedDate = ref(new Date().toISOString().split('T')[0])
+const maxDate = new Date().toISOString().split('T')[0]
+
 const filteredOrders = computed(() => {
-  if (filterPayment.value === 'all') return orders.value
-  return orders.value.filter(o => o.payment_method === filterPayment.value)
+  let result = orders.value
+
+  // Filter by date
+  if (selectedDate.value) {
+    result = result.filter(o => {
+      const orderDate = new Date(o.created_at).toISOString().split('T')[0]
+      return orderDate === selectedDate.value
+    })
+  }
+
+  // Filter by payment method
+  if (filterPayment.value !== 'all') {
+    result = result.filter(o => o.payment_method === filterPayment.value)
+  }
+  
+  return result
 })
 
 const paymentSummary = computed(() => {
@@ -60,10 +77,8 @@ const paymentSummary = computed(() => {
     total: 0
   }
   
-  // Calculate based on ALL orders to show full context, or filteredOrders if user wants to see filtered total
-  // Usually "How much transfer get" implies total accumulated.
-  // Let's calculate based on ALL orders currently loaded to give a complete overview.
-  orders.value.forEach(order => {
+  // Calculate based on filteredOrders to show daily stats
+  filteredOrders.value.forEach(order => {
     const amount = order.total_amount || 0
     if (order.payment_method === 'cash') {
       summary.cash += amount
@@ -106,30 +121,47 @@ const getPaymentColor = (method: string) => {
     </div>
 
     <!-- Filter Tabs -->
-    <div class="mb-4 flex gap-2">
-      <button 
-        @click="filterPayment = 'all'"
-        class="px-3 py-1.5 rounded-md text-sm font-medium transition-colors"
-        :class="filterPayment === 'all' ? 'bg-gray-800 text-white' : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'"
-      >
-        ทั้งหมด
-      </button>
-      <button 
-        @click="filterPayment = 'transfer'"
-        class="px-3 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2"
-        :class="filterPayment === 'transfer' ? 'bg-blue-600 text-white' : 'bg-white text-gray-600 hover:bg-blue-50 border border-gray-200'"
-      >
-        <div class="w-2 h-2 rounded-full bg-blue-400" :class="filterPayment === 'transfer' ? 'bg-white' : ''"></div>
-        เงินโอน
-      </button>
-      <button 
-        @click="filterPayment = 'cash'"
-        class="px-3 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2"
-        :class="filterPayment === 'cash' ? 'bg-green-600 text-white' : 'bg-white text-gray-600 hover:bg-green-50 border border-gray-200'"
-      >
-        <div class="w-2 h-2 rounded-full bg-green-400" :class="filterPayment === 'cash' ? 'bg-white' : ''"></div>
-        เงินสด
-      </button>
+    <div class="mb-4 flex flex-wrap items-center gap-4">
+      <!-- Date Filter -->
+      <div class="flex items-center gap-2">
+        <label for="date-filter" class="text-sm font-medium text-gray-700">วันที่:</label>
+        <input 
+          type="date" 
+          id="date-filter"
+          v-model="selectedDate"
+          :max="maxDate"
+          class="px-3 py-1.5 rounded-md border border-gray-300 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+        />
+      </div>
+
+      <div class="h-6 w-px bg-gray-300 hidden sm:block"></div>
+
+      <!-- Payment Method Filter -->
+      <div class="flex gap-2">
+        <button 
+          @click="filterPayment = 'all'"
+          class="px-3 py-1.5 rounded-md text-sm font-medium transition-colors"
+          :class="filterPayment === 'all' ? 'bg-gray-800 text-white' : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'"
+        >
+          ทั้งหมด
+        </button>
+        <button 
+          @click="filterPayment = 'transfer'"
+          class="px-3 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2"
+          :class="filterPayment === 'transfer' ? 'bg-blue-600 text-white' : 'bg-white text-gray-600 hover:bg-blue-50 border border-gray-200'"
+        >
+          <div class="w-2 h-2 rounded-full bg-blue-400" :class="filterPayment === 'transfer' ? 'bg-white' : ''"></div>
+          เงินโอน
+        </button>
+        <button 
+          @click="filterPayment = 'cash'"
+          class="px-3 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2"
+          :class="filterPayment === 'cash' ? 'bg-green-600 text-white' : 'bg-white text-gray-600 hover:bg-green-50 border border-gray-200'"
+        >
+          <div class="w-2 h-2 rounded-full bg-green-400" :class="filterPayment === 'cash' ? 'bg-white' : ''"></div>
+          เงินสด
+        </button>
+      </div>
     </div>
 
     <div class="bg-white rounded-lg shadow overflow-hidden">
