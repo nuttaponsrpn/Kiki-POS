@@ -41,7 +41,7 @@ const showLogoutConfirm = ref(false)
     <!-- Mobile Header -->
     <div class="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 z-30">
       <div class="flex items-center gap-3">
-        <img src="https://scontent.fbkk35-1.fna.fbcdn.net/v/t39.30808-6/413810278_10211154767703037_834009150123622705_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=WxNz7qE-CQsQ7kNvwEK-Hzt&_nc_oc=AdmtImNdbQLoRz-vNVOhud1_xJ2I1C1dxT9o9so3wJWAqvKrBM0sjL1Hzsmr_gfahQFd-jJ_iBugrBQDxLNrFQYn&_nc_zt=23&_nc_ht=scontent.fbkk35-1.fna&_nc_gid=qP3-meSzGy8jdcMZeV6J_g&oh=00_AfjIy_1qURIDenUkjIl-mxxJrflSwHGuRIGbbQFTF0XtQg&oe=6930846C" alt="Kiki POS" class="h-10 w-10 rounded-full object-cover" />
+        <img src="https://scontent.fbkk28-1.fna.fbcdn.net/v/t39.30808-6/413810278_10211154767703037_834009150123622705_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=diV_k9AJLaQQ7kNvwERqb71&_nc_oc=Adn4KIe3b9VBDa4LONWlNS6q0AXbSTrZ9dGceB0fxkgCjSMbzgbCouSsAdBXtLJnKfI&_nc_zt=23&_nc_ht=scontent.fbkk28-1.fna&_nc_gid=lEfFXtp6pCZ-5D7lJi6Naw&oh=00_AfllK4nqT3bQfzY6ySHBIcsA4ADxS7URvvCuR7GMyp9jXA&oe=6937542C" alt="Kiki POS" class="h-10 w-10 rounded-full object-cover" />
         <div class="flex flex-col">
           <span class="font-bold text-lg text-gray-800 leading-tight">Kiki Cheesecake</span>
           <span class="text-xs text-gray-500">Market Place</span>
@@ -67,7 +67,7 @@ const showLogoutConfirm = ref(false)
       ]"
     >
       <div class="p-3 border-b border-gray-200 flex items-center gap-3">
-        <img src="https://scontent.fbkk35-1.fna.fbcdn.net/v/t39.30808-6/413810278_10211154767703037_834009150123622705_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=WxNz7qE-CQsQ7kNvwEK-Hzt&_nc_oc=AdmtImNdbQLoRz-vNVOhud1_xJ2I1C1dxT9o9so3wJWAqvKrBM0sjL1Hzsmr_gfahQFd-jJ_iBugrBQDxLNrFQYn&_nc_zt=23&_nc_ht=scontent.fbkk35-1.fna&_nc_gid=qP3-meSzGy8jdcMZeV6J_g&oh=00_AfjIy_1qURIDenUkjIl-mxxJrflSwHGuRIGbbQFTF0XtQg&oe=6930846C" alt="Kiki POS" class="h-10 w-10 rounded-full object-cover shadow-md" />
+        <img src="https://scontent.fbkk28-1.fna.fbcdn.net/v/t39.30808-6/413810278_10211154767703037_834009150123622705_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=diV_k9AJLaQQ7kNvwERqb71&_nc_oc=Adn4KIe3b9VBDa4LONWlNS6q0AXbSTrZ9dGceB0fxkgCjSMbzgbCouSsAdBXtLJnKfI&_nc_zt=23&_nc_ht=scontent.fbkk28-1.fna&_nc_gid=lEfFXtp6pCZ-5D7lJi6Naw&oh=00_AfllK4nqT3bQfzY6ySHBIcsA4ADxS7URvvCuR7GMyp9jXA&oe=6937542C" alt="Kiki POS" class="h-10 w-10 rounded-full object-cover shadow-md" />
         <div class="flex flex-col">
           <h1 class="text-xl font-bold text-gray-800 leading-tight">Kiki Cheesecake</h1>
           <span class="text-xs text-gray-500 font-medium">Market Place</span>
