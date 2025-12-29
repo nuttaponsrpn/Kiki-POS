@@ -41,7 +41,7 @@ const showLogoutConfirm = ref(false)
     <!-- Mobile Header -->
     <div class="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 z-30">
       <div class="flex items-center gap-3">
-        <img src="https://scontent.fbkk28-1.fna.fbcdn.net/v/t39.30808-6/413810278_10211154767703037_834009150123622705_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=diV_k9AJLaQQ7kNvwERqb71&_nc_oc=Adn4KIe3b9VBDa4LONWlNS6q0AXbSTrZ9dGceB0fxkgCjSMbzgbCouSsAdBXtLJnKfI&_nc_zt=23&_nc_ht=scontent.fbkk28-1.fna&_nc_gid=lEfFXtp6pCZ-5D7lJi6Naw&oh=00_AfllK4nqT3bQfzY6ySHBIcsA4ADxS7URvvCuR7GMyp9jXA&oe=6937542C" alt="Kiki POS" class="h-10 w-10 rounded-full object-cover" />
+        <img src="/kiki logo.jpg" alt="Kiki POS" class="h-10 w-10 rounded-full object-cover" />
         <div class="flex flex-col">
           <span class="font-bold text-lg text-gray-800 leading-tight">Kiki Cheesecake</span>
           <span class="text-xs text-gray-500">Market Place</span>
@@ -56,18 +56,18 @@ const showLogoutConfirm = ref(false)
     <div 
       v-if="isSidebarOpen" 
       @click="isSidebarOpen = false"
-      class="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
+      class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
     ></div>
 
     <!-- Sidebar -->
     <aside 
       :class="[
-        'fixed lg:static inset-y-0 left-0 z-30 w-64 bg-white border-r border-gray-200 flex flex-col transition-transform duration-200 ease-in-out',
-        isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        'fixed lg:static inset-y-0 right-0 lg:left-0 lg:right-auto z-50 w-64 bg-white border-l lg:border-l-0 lg:border-r border-gray-200 flex flex-col transition-transform duration-200 ease-in-out',
+        isSidebarOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'
       ]"
     >
       <div class="p-3 border-b border-gray-200 flex items-center gap-3">
-        <img src="https://scontent.fbkk28-1.fna.fbcdn.net/v/t39.30808-6/413810278_10211154767703037_834009150123622705_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=diV_k9AJLaQQ7kNvwERqb71&_nc_oc=Adn4KIe3b9VBDa4LONWlNS6q0AXbSTrZ9dGceB0fxkgCjSMbzgbCouSsAdBXtLJnKfI&_nc_zt=23&_nc_ht=scontent.fbkk28-1.fna&_nc_gid=lEfFXtp6pCZ-5D7lJi6Naw&oh=00_AfllK4nqT3bQfzY6ySHBIcsA4ADxS7URvvCuR7GMyp9jXA&oe=6937542C" alt="Kiki POS" class="h-10 w-10 rounded-full object-cover shadow-md" />
+        <img src="/kiki logo.jpg" alt="Kiki POS" class="h-10 w-10 rounded-full object-cover shadow-md" />
         <div class="flex flex-col">
           <h1 class="text-xl font-bold text-gray-800 leading-tight">Kiki Cheesecake</h1>
           <span class="text-xs text-gray-500 font-medium">Market Place</span>
